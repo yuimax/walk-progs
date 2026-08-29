@@ -16,7 +16,7 @@ go.mod: $(APP).go
 	go mod tidy
 	go get github.com/lxn/walk
 
-resource.syso: versioninfo.json gowalk.manifest icon.ico
+resource.syso: versioninfo.json ../files/gowalk.manifest ../files/icon.ico
 	go generate
 
 clean:
