@@ -15,7 +15,11 @@ func main() {
 	
     // メインウィンドウの設定
     mw.SetTitle("001: walk.MainWindow")
-    mw.SetSize(walk.Size{Width:600, Height:400})
+    mw.SetSize(walk.Size{600, 400})
+	mw.SetMinMaxSize(
+		walk.Size{300, 200}, // MinSize 
+		walk.Size{800, 600}, // MaxSize
+	)
 
     // レイアウト設定
     layout := walk.NewVBoxLayout()
