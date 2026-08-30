@@ -13,7 +13,7 @@ func main() {
 	}
 	
 	// メインウィンドウの設定
-	mw.SetTitle("001: walk.MainWindow")
+	mw.SetTitle("walk 001-MainWindow")
 	mw.SetSize(walk.Size{600, 400})
 	mw.SetMinMaxSize(
 		walk.Size{300, 200}, // MinSize 

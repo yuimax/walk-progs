@@ -1,6 +1,9 @@
 # walk-progs
 
-* Go言語 + walk による Windows GUI プログラミングの練習
+* Go言語 + [walk](https://github.com/lxn/walk) による Windows GUI プログラミングの練習
+
++ ここでは walk/declarative を利用せず、walk のみでコーディングする
++ declarative を使う例はこちら＞ https://github.com/yuimax/decl-progs
 
 ## 使用ツール
 
