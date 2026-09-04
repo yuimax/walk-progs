@@ -144,10 +144,10 @@ func main() {
 
 	// ■ mainWindow/panel/画像表示ボタン
 	createPushButton(panel, "画像表示", func() {
-		n := len(imageFiles)
+		const n = len(imageFiles)
 		if isCtrlPressed() {
-			imageFileIndex = ((imageFileIndex - 1) % n + n) % n
-		}else {
+			imageFileIndex = ((imageFileIndex-1)%n + n) % n
+		} else {
 			imageFileIndex = (imageFileIndex + 1) % n
 		}
 		newImage := loadImage(imageFiles[imageFileIndex], mainWindow.DPI())

@@ -19,7 +19,7 @@ func toString(value any) string {
 		case walk.PaintBuffered:
 			return "PaintBuffered"
 		default:
-			return fmt.Sprintf("%v (%T)", v, v)
+			return fmt.Sprintf("(%T) %v", v, v)
 		}
 
 	case walk.ImageViewMode:
@@ -37,14 +37,14 @@ func toString(value any) string {
 		case walk.ImageViewModeShrink:
 			return "ImageViewModeShrink"
 		default:
-			return fmt.Sprintf("%v (%T)", v, v)
+			return fmt.Sprintf("(%T) %v", v, v)
 		}
 
 	case nil:
 		return "nil"
 
 	default:
-		return fmt.Sprintf("%v (%T)", v, v)
+		return fmt.Sprintf("(%T) %v", v, v)
 	}
 }
 
