@@ -38,8 +38,8 @@ func main() {
 		panic(err)
 	}
 	mainWindow.SetTitle("002-Widgets")
-	mainWindow.SetSize(walk.Size{960, 720})
-	mainWindow.SetMinMaxSize(walk.Size{480, 360}, walk.Size{})
+	mainWindow.SetSize(walk.Size{600, 400})
+	mainWindow.SetMinMaxSize(walk.Size{400, 300}, walk.Size{})
 	//mainWindow.SetBackground(rgbBrush(240, 128, 128))
 
 	mainWindowLayout := walk.NewHBoxLayout()
@@ -122,9 +122,10 @@ func main() {
 			"Window Size = %#v\r\n"+
 			"Client Size = %#v\r\n"+
 			"imageView.ClearsBackground = %v\r\n"+
-			"imageView.PaintMode = %v\r\n"+
+			"imageView.PaintMode = %s\r\n"+
 			"",
-			imageView.InvalidatesOnResize(),
+			mainWindow.Size(),
+			mainWindow.ClientBounds().Size(),
 			imageView.ClearsBackground(),
 			toString(imageView.PaintMode()),
 		)
@@ -157,17 +158,14 @@ func main() {
 		})
 	}
 
-	// ■ mainWindow/panel/画像進むボタン
-	createPushButton(panel, "画像進む", func() {
-		imageFileIndex = (imageFileIndex + 1) % 6
-		newImage := loadImage(imageFiles[imageFileIndex], mainWindow.DPI())
-		setImage(imageView, newImage)
-		tabWidget.SetCurrentIndex(1)
-	})
-
-	// ■ mainWindow/panel/画像戻るボタン
-	createPushButton(panel, "画像戻る", func() {
-		imageFileIndex = (imageFileIndex + 5) % 6
+	// ■ mainWindow/panel/画像表示ボタン
+	createPushButton(panel, "画像表示", func() {
+		n := len(imageFiles)
+		if isCtrlPressed() {
+			imageFileIndex = (imageFileIndex + n - 1) % n
+		}else {
+			imageFileIndex = (imageFileIndex + 1) % n
+		}
 		newImage := loadImage(imageFiles[imageFileIndex], mainWindow.DPI())
 		setImage(imageView, newImage)
 		tabWidget.SetCurrentIndex(1)

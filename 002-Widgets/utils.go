@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/lxn/walk"
 	"github.com/lxn/win"
+	"golang.org/x/sys/windows"
 )
 
 func toString(value any) string {
@@ -79,4 +80,17 @@ func redrawFrame(w walk.Window) {
 		0, 0, 0, 0, 0,
 		win.SWP_NOMOVE|win.SWP_NOSIZE|win.SWP_NOZORDER|win.SWP_FRAMECHANGED,
 	)
+}
+
+// CTRLキーが押されているか調べる
+var (
+	user32           = windows.NewLazySystemDLL("user32.dll")
+	getAsyncKeyState = user32.NewProc("GetAsyncKeyState")
+)
+
+const VK_CONTROL = 0x11
+
+func isCtrlPressed() bool {
+	ret, _, _ := getAsyncKeyState.Call(uintptr(VK_CONTROL))
+	return (ret & 0x8000) != 0
 }
