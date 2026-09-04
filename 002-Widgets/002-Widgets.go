@@ -39,7 +39,7 @@ func main() {
 	}
 	mainWindow.SetTitle("002-Widgets")
 	mainWindow.SetSize(walk.Size{600, 400})
-	mainWindow.SetMinMaxSize(walk.Size{400, 300}, walk.Size{})
+	mainWindow.SetMinMaxSize(walk.Size{320, 240}, walk.Size{})
 	//mainWindow.SetBackground(rgbBrush(240, 128, 128))
 
 	mainWindowLayout := walk.NewHBoxLayout()
@@ -111,27 +111,11 @@ func main() {
 
 	panelLayout := walk.NewVBoxLayout()
 	panelLayout.SetMargins(walk.Margins{0, 0, 0, 0})
+	panelLayout.SetSpacing(2)
 	panel.SetLayout(panelLayout)
 
 	// ■ mainWindow/panel/縦スペーサー(高さ16ピクセル)
 	createVSpacer(panel, 16)
-
-	// ■ mainWindow/panel/テキスト表示ボタン
-	createPushButton(panel, "テキスト表示", func() {
-		text := fmt.Sprintf(""+
-			"Window Size = %#v\r\n"+
-			"Client Size = %#v\r\n"+
-			"imageView.ClearsBackground = %v\r\n"+
-			"imageView.PaintMode = %s\r\n"+
-			"",
-			mainWindow.Size(),
-			mainWindow.ClientBounds().Size(),
-			imageView.ClearsBackground(),
-			toString(imageView.PaintMode()),
-		)
-		textEdit.SetText(text)
-		tabWidget.SetCurrentIndex(0)
-	})
 
 	// ■ mainWindow/panel/group1
 	group1, err := walk.NewGroupBox(panel)
@@ -162,13 +146,30 @@ func main() {
 	createPushButton(panel, "画像表示", func() {
 		n := len(imageFiles)
 		if isCtrlPressed() {
-			imageFileIndex = (imageFileIndex + n - 1) % n
+			imageFileIndex = ((imageFileIndex - 1) % n + n) % n
 		}else {
 			imageFileIndex = (imageFileIndex + 1) % n
 		}
 		newImage := loadImage(imageFiles[imageFileIndex], mainWindow.DPI())
 		setImage(imageView, newImage)
 		tabWidget.SetCurrentIndex(1)
+	})
+
+	// ■ mainWindow/panel/テキスト表示ボタン
+	createPushButton(panel, "テキスト表示", func() {
+		text := fmt.Sprintf(""+
+			"Window Size = %#v\r\n"+
+			"Client Size = %#v\r\n"+
+			"imageView.PaintMode = %s\r\n"+
+			"imageView.Mode = %s\r\n"+
+			"",
+			mainWindow.Size(),
+			mainWindow.ClientBounds().Size(),
+			toString(imageView.PaintMode()),
+			toString(imageView.Mode()),
+		)
+		textEdit.SetText(text)
+		tabWidget.SetCurrentIndex(0)
 	})
 
 	// ■ mainWindow/panel/消去ボタン

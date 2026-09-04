@@ -9,6 +9,7 @@ import (
 
 func toString(value any) string {
 	switch v := value.(type) {
+
 	case walk.PaintMode:
 		switch v {
 		case walk.PaintNormal:
@@ -18,10 +19,30 @@ func toString(value any) string {
 		case walk.PaintBuffered:
 			return "PaintBuffered"
 		default:
-			return fmt.Sprintf("%v (%T)", v)
+			return fmt.Sprintf("%v (%T)", v, v)
 		}
+
+	case walk.ImageViewMode:
+		switch v {
+		case walk.ImageViewModeIdeal:
+			return "ImageViewModeIdeal"
+		case walk.ImageViewModeCorner:
+			return "ImageViewModeCorner"
+		case walk.ImageViewModeCenter:
+			return "ImageViewModeCenter"
+		case walk.ImageViewModeZoom:
+			return "ImageViewModeZoom"
+		case walk.ImageViewModeStretch:
+			return "ImageViewModeStretch"
+		case walk.ImageViewModeShrink:
+			return "ImageViewModeShrink"
+		default:
+			return fmt.Sprintf("%v (%T)", v, v)
+		}
+
 	case nil:
 		return "nil"
+
 	default:
 		return fmt.Sprintf("%v (%T)", v, v)
 	}
