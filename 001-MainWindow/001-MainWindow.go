@@ -7,20 +7,27 @@ import (
 
 func main() {
 	// メインウィンドウの作成
-	mw, err := walk.NewMainWindow()
+	mainWindow, err := walk.NewMainWindow()
 	if err != nil {
 		panic(err)
 	}
-	
-	// メインウィンドウの設定
-	mw.SetTitle("walk 001-MainWindow")
-	mw.SetSize(walk.Size{600, 400})
 
-	// レイアウト設定
+	// タイトル、サイズ
+	mainWindow.SetTitle("walk 001-MainWindow")
+	mainWindow.SetSize(walk.Size{600, 400})
+
+	// 背景色
+	bgBrush, err := walk.NewSystemColorBrush(walk.SysColorWindow)
+	if err != nil {
+		panic(err)
+	}
+	mainWindow.SetBackground(bgBrush)
+
+	// レイアウト
 	layout := walk.NewVBoxLayout()
-	mw.SetLayout(layout)
-	
+	mainWindow.SetLayout(layout)
+
 	// ウィンドウを表示してイベントループを開始
-	mw.Show()
-	mw.Run()
+	mainWindow.Show()
+	mainWindow.Run()
 }
